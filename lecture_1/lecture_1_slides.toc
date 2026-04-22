@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{Course Overview and Motivation}{3}{0}{1}
+\beamer@sectionintoc {2}{The Supervised Learning Problem}{9}{0}{2}
+\beamer@sectionintoc {3}{Linear Models as Starting Point}{16}{0}{3}
+\beamer@sectionintoc {4}{The Perceptron}{24}{0}{4}
+\beamer@sectionintoc {5}{From Perceptrons to Deep Networks}{33}{0}{5}
+\beamer@sectionintoc {6}{Introduction to PyTorch and Google Colab}{41}{0}{6}
+\beamer@sectionintoc {7}{Summary and Next Steps}{48}{0}{7}

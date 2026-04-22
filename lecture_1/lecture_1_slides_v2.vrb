@@ -1,0 +1,30 @@
+\frametitle{The Training Loop (Preview)}
+
+\begin{lstlisting}
+# The basic training loop structure
+model = SingleNeuron()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01)  # SGD
+criterion = nn.BCELoss()                                   # Binary CE
+
+for epoch in range(100):
+    # Forward pass
+    y_pred = model(x_train)
+    loss = criterion(y_pred, y_train)
+
+    # Backward pass
+    optimizer.zero_grad()    # Reset gradients to zero
+    loss.backward()          # Compute gradients (backpropagation)
+
+    # Update parameters
+    optimizer.step()         # w <- w - alpha * grad
+
+    if epoch % 10 == 0:
+        print(f"Epoch {epoch}, Loss: {loss.item():.4f}")
+\end{lstlisting}
+
+\vspace{4pt}
+\begin{center}
+\textbf{Every DL training follows this pattern:} forward $\to$ loss $\to$ backward $\to$ update.
+
+We'll understand \emph{exactly why} in Lecture 2 (backpropagation).
+\end{center}

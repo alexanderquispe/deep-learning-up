@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{Recap and Activation Functions Deep Dive}{3}{0}{1}
+\beamer@sectionintoc {2}{Loss Functions in Detail}{11}{0}{2}
+\beamer@sectionintoc {3}{The Chain Rule}{19}{0}{3}
+\beamer@sectionintoc {4}{Backpropagation Algorithm}{24}{0}{4}
+\beamer@sectionintoc {5}{Gradient Descent Variants}{35}{0}{5}
+\beamer@sectionintoc {6}{PyTorch Implementation}{41}{0}{6}
+\beamer@sectionintoc {7}{Summary and Next Steps}{45}{0}{7}

@@ -1,0 +1,44 @@
+\frametitle{Google Colab Setup}
+
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\textbf{Google Colab} provides free access to GPUs in the browser.
+
+\vspace{6pt}
+\textcolor{blue}{\textbf{Getting started:}}
+\begin{enumerate}
+    \item Go to \texttt{colab.research.google.com}.
+    \item Create a new notebook.
+    \item Runtime $\to$ Change runtime type $\to$ \textbf{GPU}.
+    \item PyTorch is pre-installed!
+\end{enumerate}
+
+\vspace{6pt}
+\textcolor{blue}{\textbf{Recommended subscriptions:}}
+\begin{itemize}
+    \item \textbf{Colab Pro} (\$10/mo): better GPUs, longer runtime.
+    \item \textbf{Colab Pro+} (\$50/mo): even more resources.
+    \item Free tier works for Lectures 1--5.
+\end{itemize}
+\end{column}
+
+\begin{column}{0.42\textwidth}
+\textbf{Verify GPU access:}
+
+\vspace{4pt}
+\begin{lstlisting}
+import torch
+print(torch.cuda.is_available())
+# True
+print(torch.cuda.get_device_name(0))
+# Tesla T4
+\end{lstlisting}
+
+\vspace{6pt}
+\textcolor{blue}{\textbf{Also recommended:}}
+\begin{itemize}
+    \item \textbf{Claude Code} (\$20/mo) for coding assistance.
+    \item Use LLMs as a learning tool, not a replacement.
+\end{itemize}
+\end{column}
+\end{columns}

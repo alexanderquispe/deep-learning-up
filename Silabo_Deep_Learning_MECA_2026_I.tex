@@ -1,0 +1,292 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{graphicx}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\begin{document}
+
+\begin{center}
+{\Large \textbf{S\'ILABO 2026-I}}
+\end{center}
+
+\vspace{0.5cm}
+
+% ============================================================
+% I. INFORMACION GENERAL
+% ============================================================
+\section*{I. INFORMACI\'ON GENERAL}
+
+\textbf{Nombre del curso:} \colorbox{yellow}{M\'etodos Avanzados en Deep Learning} \\
+\textbf{Programa:} Maestr\'ia en Econom\'ia Aplicada (MECA) -- Universidad del Pac\'ifico \\
+\textbf{Ciclo:} MECA 2 -- Ciclo 4 -- Electivo 3 \\
+\textbf{Profesor del curso:} Alexander Quispe Rojas \\
+\textbf{Email:} \href{mailto:aw.quispero@up.edu.pe}{aw.quispero@up.edu.pe}, \href{mailto:aquisper@caltech.edu}{aquisper@caltech.edu} \\
+\textbf{Horas:} 24 horas (10 sesiones virtuales) \\
+\textbf{Cr\'editos:} 1.5 \\
+\textbf{Modalidad:} Todas las clases virtuales \\
+\textbf{Requisito:} Data Science con Python (o conocimientos equivalentes de Python y manejo de datos) \\
+\textbf{Asesor\'ia:} \url{https://calendly.com/alexander-quispe}
+
+% ============================================================
+% II. SUMILLA
+% ============================================================
+\section*{II. SUMILLA}
+
+Este curso ofrece una introducci\'on rigurosa y aplicada a los m\'etodos de deep learning, dise\~nado espec\'ificamente para profesionales y estudiantes de econom\'ia aplicada. Se cubren los fundamentos te\'oricos de las neural networks ---desde el perceptron y backpropagation hasta las arquitecturas modernas como Convolutional Neural Networks (CNNs), Recurrent Neural Networks (RNNs), attention mechanisms y Transformers--- con \'enfasis en su implementaci\'on pr\'actica en Python usando PyTorch. El curso culmina con el estudio de Large Language Models (LLMs) y foundation models, explorando sus aplicaciones en el an\'alisis econ\'omico, la investigaci\'on y la formulaci\'on de pol\'iticas p\'ublicas.
+
+% ============================================================
+% III. PRESENTACION
+% ============================================================
+\section*{III. PRESENTACI\'ON}
+
+El deep learning ha transformado m\'ultiples disciplinas, y la econom\'ia no es la excepci\'on. Desde el an\'alisis de texto en discursos de bancos centrales hasta la predicci\'on de variables macroecon\'omicas con datos no estructurados, las t\'ecnicas de aprendizaje profundo ofrecen herramientas poderosas para los economistas aplicados.
+
+Este curso parte de los fundamentos matem\'aticos del deep learning ---perceptrons, activation functions, loss functions y el algoritmo de backpropagation--- y avanza progresivamente hacia arquitecturas m\'as sofisticadas. Se estudiar\'an las Convolutional Neural Networks para el procesamiento de im\'agenes y datos espaciales, los word embeddings (Word2Vec) y las Recurrent Neural Networks para datos secuenciales, los mecanismos de attention y self-attention, y la arquitectura Transformer que sustenta los language models modernos.
+
+La parte final del curso se dedica a los foundation models (LLMs, CLIP, DINO) y sus aplicaciones en econom\'ia, incluyendo sentiment analysis de textos econ\'omicos, la extracci\'on de informaci\'on de documentos de pol\'itica, y el uso de pretrained models para tareas de investigaci\'on.
+
+Todas las implementaciones se realizar\'an en Python, utilizando PyTorch y Google Colab, lo que permite a los estudiantes experimentar con GPUs sin necesidad de infraestructura local.
+
+% ============================================================
+% IV. RESULTADOS DE APRENDIZAJE
+% ============================================================
+\section*{IV. RESULTADOS DE APRENDIZAJE}
+
+Al finalizar el curso, las y los estudiantes ser\'an capaces de:
+
+\begin{itemize}[leftmargin=2cm]
+    \item Comprender los fundamentos matem\'aticos de las neural networks, incluyendo activation functions, loss functions, backpropagation y stochastic gradient descent.
+    \item Implementar feedforward neural networks, Convolutional Neural Networks y Recurrent Neural Networks en PyTorch para resolver problemas de classification y regression.
+    \item Explicar el funcionamiento de los mecanismos de attention, self-attention y la arquitectura Transformer.
+    \item Utilizar Large Language Models (LLMs) y pretrained models para tareas de an\'alisis de texto y datos econ\'omicos.
+    \item Aplicar t\'ecnicas de transfer learning y fine-tuning a problemas relevantes en econom\'ia aplicada.
+    \item Evaluar cr\'iticamente las posibilidades, limitaciones y consideraciones \'eticas del uso de deep learning en la investigaci\'on econ\'omica y la pol\'itica p\'ublica.
+\end{itemize}
+
+% ============================================================
+% V. CONTENIDO DEL CURSO
+% ============================================================
+\section*{V. CONTENIDO DEL CURSO}
+
+\subsection*{1. Introducci\'on al Deep Learning y Perceptrons}
+
+Visi\'on general del deep learning, su historia y su relevancia para la econom\'ia aplicada. El perceptron como unidad b\'asica de computaci\'on. Classification y regression. Introducci\'on al entorno de trabajo: Python, PyTorch y Google Colab.
+
+\subsection*{2. Non-linearities, Loss Functions, Backpropagation y Gradient Descent}
+
+Activation functions (sigmoid, tanh, ReLU). Loss functions para regression (MSE) y classification (cross-entropy). El algoritmo de backpropagation. Gradient descent y sus variantes.
+
+\subsection*{3. Training de Neural Networks: SGD, Batching, Regularization y Generalization}
+
+Stochastic Gradient Descent (SGD), mini-batches y momentum. Regularization (L1, L2, dropout). Overfitting y t\'ecnicas de generalization. El Universal Approximation Theorem y el valor de la profundidad. Introducci\'on a GPUs y computaci\'on paralela.
+
+\subsection*{4. Convolutional Neural Networks (CNNs)}
+
+Motivaci\'on: procesamiento de im\'agenes y datos espaciales. Operaci\'on de convolution, pooling y arquitecturas cl\'asicas (LeNet, AlexNet, ResNet). Aplicaciones en econom\'ia: an\'alisis de im\'agenes satelitales, detecci\'on de patrones en datos geoespaciales.
+
+\subsection*{5. Word Embeddings (Word2Vec) y Recurrent Neural Networks (RNNs)}
+
+Representaci\'on vectorial de palabras: Word2Vec (Skip-gram, CBOW). Recurrent Neural Networks: arquitectura b\'asica, LSTM y GRU. Language models. Aplicaciones en econom\'ia: an\'alisis de time series y procesamiento de texto econ\'omico.
+
+\subsection*{6. Attention y Self-Attention Mechanisms}
+
+Limitaciones de las RNNs para secuencias largas. Attention mechanism: queries, keys y values. Self-attention. Multi-head attention. De attention a las arquitecturas modernas.
+
+\subsection*{7. Transformers}
+
+La arquitectura Transformer: encoder y decoder. Positional embeddings. Layer normalization y residual connections. Por qu\'e los Transformers reemplazaron a las RNNs. Implementaci\'on pr\'actica.
+
+\subsection*{8. Large Language Models (LLMs) y aplicaciones en econom\'ia}
+
+De BERT a GPT: la evoluci\'on de los LLMs. Pretraining y fine-tuning. Prompt engineering. Aplicaciones en econom\'ia: sentiment analysis de minutas de bancos centrales, clasificaci\'on de textos de pol\'itica econ\'omica, extracci\'on de informaci\'on de documentos regulatorios.
+
+\subsection*{9. Foundation Models: CLIP, DINO y Transfer Learning}
+
+Foundation models y el paradigma de pretraining. CLIP: conectando texto e im\'agenes. DINO: self-supervised learning. Vision Transformers (ViTs). Transfer learning y fine-tuning para tareas econ\'omicas. Supervision y data curation.
+
+% ============================================================
+% VI. METODOLOGIA
+% ============================================================
+\section*{VI. METODOLOG\'IA}
+
+Clases virtuales sincr\'onicas con un enfoque te\'orico-pr\'actico. Cada sesi\'on combina la presentaci\'on de conceptos te\'oricos con ejercicios pr\'acticos de implementaci\'on en Python (PyTorch) utilizando Google Colab. Se fomenta la discusi\'on de aplicaciones relevantes para la econom\'ia aplicada y la participaci\'on activa de los estudiantes.
+
+Los materiales del curso (slides, notebooks, datos) estar\'an disponibles en un repositorio de GitHub.
+
+% ============================================================
+% VII. EVALUACION
+% ============================================================
+\section*{VII. EVALUACI\'ON}
+
+Se evaluar\'a la asistencia, participaci\'on en clases, 4 pr\'acticas calificadas (homeworks) y un examen final oral. Cada pr\'actica consiste en un trabajo para la casa donde los estudiantes deber\'an subir los datasets utilizados y el script (c\'odigo) correspondiente.
+
+\vspace{0.3cm}
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Tipo de evaluaci\'on} & \textbf{Cantidad} & \textbf{Peso total (\%)} \\
+\hline
+Asistencia / Participaci\'on & 1 & 10 \\
+\hline
+Pr\'actica 1: Feedforward Neural Networks & 1 & 15 \\
+\hline
+Pr\'actica 2: CNNs y RNNs & 1 & 15 \\
+\hline
+Pr\'actica 3: Transformers y NLP & 1 & 15 \\
+\hline
+Pr\'actica 4: LLMs y Foundation Models & 1 & 15 \\
+\hline
+Examen final oral & 1 & 30 \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\textit{Nota: Cada pr\'actica se entrega subiendo los datasets y el script (c\'odigo) utilizado.}
+
+\subsection*{Examen final oral}
+
+El examen final oral se realizar\'a de manera individual por Zoom el viernes 22 de mayo. Cada estudiante dispondr\'a de \textbf{10 minutos}, durante los cuales el profesor realizar\'a \textbf{2 preguntas} relacionadas con cualquier tema del curso. Las preguntas pueden incluir:
+
+\begin{itemize}[leftmargin=2cm]
+    \item Preguntas conceptuales sobre los temas cubiertos en el curso (e.g., ``Explica c\'omo funciona self-attention'').
+    \item La resoluci\'on de un ejercicio matem\'atico breve, de complejidad moderada, resoluble en menos de 10 minutos (e.g., calcular un paso de backpropagation, derivar una loss function, aplicar gradient descent).
+    \item La interpretaci\'on de un fragmento de c\'odigo (screenshot) donde el estudiante deber\'a explicar qu\'e hace el c\'odigo, identificar la arquitectura utilizada, o predecir el output esperado.
+\end{itemize}
+
+El objetivo es verificar la comprensi\'on conceptual y pr\'actica de los contenidos cubiertos a lo largo de las 9 sesiones. No se permite el uso de LLMs, apuntes ni ning\'un material de apoyo durante el examen.
+
+\subsection*{Pol\'itica de uso de LLMs y herramientas de IA}
+
+Los estudiantes pueden y se les anima a utilizar cualquier Large Language Model (ChatGPT, Claude, Gemini, etc.) como herramienta de apoyo para el desarrollo de las pr\'acticas. Se recomienda fuertemente el uso de \textbf{Claude Code} (suscripci\'on de \$20 USD/mes), que permite asistencia directa en la escritura, debugging y ejecuci\'on de c\'odigo desde la terminal.
+
+Sin embargo, los estudiantes deben comprender el c\'odigo que entregan y ser capaces de explicar su funcionamiento. El uso de LLMs es una herramienta de productividad, no un sustituto del aprendizaje.
+
+\subsection*{Google Colab}
+
+Para la ejecuci\'on de los modelos se utilizar\'a Google Colab, que ofrece acceso gratuito a GPUs. Se recomienda considerar la suscripci\'on a \textbf{Colab Pro} (\$10 USD/mes) o \textbf{Colab Pro+} (\$50 USD/mes) para obtener mayor tiempo de GPU y recursos de c\'omputo, especialmente para las pr\'acticas 3 y 4 que involucran modelos m\'as grandes. Google ofrece descuentos educativos que pueden ser consultados en su plataforma.
+
+\subsection*{Pol\'itica de entregas tard\'ias}
+
+\begin{itemize}[leftmargin=2cm]
+    \item Por cada d\'ia de atraso en la entrega de una pr\'actica, se descontar\'an \textbf{2 puntos} (sobre 20) de la nota obtenida.
+    \item Despu\'es de \textbf{3 d\'ias} de atraso, la pr\'actica \textbf{no ser\'a aceptada} y recibir\'a una nota de cero.
+    \item No se aceptar\'an excepciones salvo casos debidamente justificados y comunicados con anticipaci\'on al profesor.
+\end{itemize}
+
+% ============================================================
+% VIII. CRONOGRAMA
+% ============================================================
+\section*{VIII. CRONOGRAMA}
+
+\begin{center}
+\begin{longtable}{|c|p{4cm}|p{3.5cm}|p{4.5cm}|}
+\hline
+\textbf{Sesi\'on} & \textbf{Tema / Contenido} & \textbf{Fecha y horario} & \textbf{Evaluaci\'on} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Sesi\'on} & \textbf{Tema / Contenido} & \textbf{Fecha y horario} & \textbf{Evaluaci\'on} \\
+\hline
+\endhead
+
+1 & Introducci\'on al Deep Learning y Perceptrons & Lunes 13 de abril, 7:30--10:00 pm (2.5 h) & \\
+\hline
+2 & Non-linearities, Loss Functions, Backpropagation y Gradient Descent & Viernes 17 de abril, 7:30--10:00 pm (2.5 h) & \\
+\hline
+3 & Training: SGD, Regularization y Generalization & Lunes 20 de abril, 7:30--10:00 pm (2.5 h) & \textbf{Entrega Pr\'actica 1} -- Domingo 27 de abril \\
+\hline
+4 & Convolutional Neural Networks (CNNs) & S\'abado 25 de abril, 8:30--11:00 am (2.5 h) & \\
+\hline
+5 & Word Embeddings (Word2Vec) y Recurrent Neural Networks (RNNs) & Lunes 27 de abril, 7:30--10:00 pm (2.5 h) & \textbf{Entrega Pr\'actica 2} -- Domingo 4 de mayo \\
+\hline
+6 & Attention y Self-Attention Mechanisms & S\'abado 2 de mayo, 8:30--11:00 am (2.5 h) & \\
+\hline
+7 & Transformers & S\'abado 9 de mayo, 8:30--11:00 pm (2.5 h) & \textbf{Entrega Pr\'actica 3} -- Domingo 11 de mayo \\
+\hline
+8 & Large Language Models (LLMs) y aplicaciones en econom\'ia & S\'abado 16 de mayo, 8:30--11:00 am (2.5 h) & \\
+\hline
+9 & Foundation Models: CLIP, DINO, Transfer Learning & Lunes 18 de mayo, 7:30--9:30 pm (2 h) & \textbf{Entrega Pr\'actica 4} -- Lunes 18 de mayo \\
+\hline
+10 & \textbf{Examen final oral} (individual, 10 min por estudiante, 2 preguntas) & Viernes 22 de mayo, 7:30--9:30 pm (2 h) & \textbf{Examen final oral} \\
+\hline
+\end{longtable}
+\end{center}
+
+% ============================================================
+% IX. DESCRIPCION DE LAS PRACTICAS
+% ============================================================
+\section*{IX. DESCRIPCI\'ON DE LAS PR\'ACTICAS CALIFICADAS}
+
+\subsection*{Pr\'actica 1: Feedforward Neural Networks}
+Implementaci\'on de una feedforward neural network en PyTorch para un problema de classification o regression con datos econ\'omicos. Los estudiantes deber\'an entrenar el modelo, ajustar hyperparameters (learning rate, n\'umero de layers, regularization) y reportar resultados con m\'etricas de evaluaci\'on apropiadas. \textbf{Entregable:} dataset y script (.py o .ipynb).
+
+\subsection*{Pr\'actica 2: CNNs y RNNs aplicados a datos econ\'omicos}
+Aplicaci\'on de Convolutional Neural Networks a datos de im\'agenes (por ejemplo, im\'agenes satelitales para predicci\'on econ\'omica) o Recurrent Neural Networks a datos secuenciales (time series econ\'omicas). Se evaluar\'a la correcta implementaci\'on de la arquitectura y la interpretaci\'on de resultados. \textbf{Entregable:} dataset y script (.py o .ipynb).
+
+\subsection*{Pr\'actica 3: Transformers y Natural Language Processing}
+Uso de un modelo basado en Transformers (por ejemplo, BERT o un modelo similar) para una tarea de NLP relevante en econom\'ia: sentiment analysis de textos financieros, clasificaci\'on de documentos de pol\'itica, o extracci\'on de informaci\'on de reportes econ\'omicos. \textbf{Entregable:} dataset y script (.py o .ipynb).
+
+\subsection*{Pr\'actica 4: LLMs y Foundation Models}
+Aplicaci\'on de Large Language Models o foundation models a un problema de an\'alisis econ\'omico. Los estudiantes deber\'an subir el dataset utilizado y el script con la implementaci\'on completa, incluyendo preprocessing, modelo y evaluaci\'on de resultados. \textbf{Entregable:} dataset y script (.py o .ipynb).
+
+% ============================================================
+% X. BIBLIOGRAFIA
+% ============================================================
+\section*{X. BIBLIOGRAF\'IA}
+
+\subsection*{Textos principales}
+
+Goodfellow, I., Bengio, Y., \& Courville, A. (2016). \textit{Deep Learning}. MIT Press. \url{https://www.deeplearningbook.org/}
+
+Zhang, A., Lipton, Z. C., Li, M., \& Smola, A. J. (2023). \textit{Dive into Deep Learning}. Cambridge University Press. \url{https://d2l.ai/}
+
+\subsection*{Textos complementarios}
+
+Jurafsky, D., \& Martin, J. H. (2024). \textit{Speech and Language Processing} (3rd ed. draft). \url{https://web.stanford.edu/~jurafsky/slp3/}
+
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, \L., \& Polosukhin, I. (2017). Attention Is All You Need. \textit{Advances in Neural Information Processing Systems}, 30.
+
+Devlin, J., Chang, M.-W., Lee, K., \& Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. \textit{Proceedings of NAACL-HLT}.
+
+Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., ... \& Sutskever, I. (2021). Learning Transferable Visual Models From Natural Language Supervision (CLIP). \textit{Proceedings of ICML}.
+
+\subsection*{Aplicaciones de deep learning en econom\'ia}
+
+Athey, S., \& Imbens, G. W. (2019). Machine Learning Methods That Economists Should Know About. \textit{Annual Review of Economics}, 11, 685--725.
+
+Gentzkow, M., Kelly, B., \& Taddy, M. (2019). Text as Data. \textit{Journal of Economic Literature}, 57(3), 535--574.
+
+Jean, N., Burke, M., Xie, M., Davis, W. M., Lobell, D. B., \& Ermon, S. (2016). Combining Satellite Imagery and Machine Learning to Predict Poverty. \textit{Science}, 353(6301), 790--794.
+
+Hansen, S., \& McMahon, M. (2016). Shocking Language: Understanding the Macroeconomic Effects of Central Bank Communication. \textit{Journal of International Economics}, 99, S114--S133.
+
+Dell, M., \& Olken, B. A. (2020). The Development Effects of the Extractive Colonial Economy: The Dutch Cultivation System in Java. \textit{The Review of Economic Studies}, 87(1), 164--203.
+
+\subsection*{Recursos en l\'inea}
+
+PyTorch Documentation. \url{https://pytorch.org/docs/stable/index.html}
+
+Google Colab. \url{https://colab.research.google.com/}
+
+Karpathy, A. (2015). The Unreasonable Effectiveness of Recurrent Neural Networks. \url{https://karpathy.github.io/2015/05/21/rnn-effectiveness/}
+
+\end{document}

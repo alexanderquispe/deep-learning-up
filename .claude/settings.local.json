@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pdflatex -interaction=nonstopmode Silabo_Deep_Learning_MECA_2026_I.tex)",
+      "WebSearch",
+      "Bash(pdflatex -interaction=nonstopmode lecture_1_slides.tex)",
+      "Bash(pdflatex -interaction=nonstopmode -jobname=lecture_1_slides_v2 lecture_1_slides.tex)",
+      "Bash(pdflatex -interaction=nonstopmode -jobname=test lecture_1_slides.tex)",
+      "Bash(pdflatex -interaction=nonstopmode lecture_2_slides.tex)"
+    ]
+  }
+}
