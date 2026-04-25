@@ -300,7 +300,7 @@ For $L = 10$: $0.25^{10} \approx 10^{-6}$
 \end{column}
 \end{columns}
 
-\vspace{8pt}
+\vspace{4pt}
 \textbf{Solution:} Use \textbf{ReLU}, where $\sigma'(z) = 1$ for $z > 0$. No vanishing gradient!
 \end{frame}
 
@@ -508,25 +508,26 @@ $p(y | \vx) = \hat{y}^{y}(1 - \hat{y})^{1-y}$.
 \begin{tikzpicture}
 \node [mybox] (box){%
     \begin{minipage}{0.93\textwidth}
+    \vspace{-6pt}
     \[
         \pd{\ell}{z} = \sigma(z) - y = \hat{y} - y
     \]
-    The gradient of the BCE loss with respect to the logit $z$ is simply $\hat{y} - y$.
+    \vspace{-8pt}
+    The gradient of BCE w.r.t.\ the logit $z$ is simply $\hat{y} - y$.
     \end{minipage}
 };
 \node[fancytitle, right=10pt] at (box.north west) {Key Result};
 \end{tikzpicture}
 
-\vspace{8pt}
-\textbf{Why is this beautiful?}
-\begin{wideitemize}
-    \item No $\sigma'(z) = \sigma(z)(1-\sigma(z))$ term in the gradient!
-    \item Even when $\sigma'(z)$ is tiny (saturated sigmoid), the gradient is still large if the prediction is wrong.
-    \item \textbf{This is not a coincidence:} BCE was designed precisely because it pairs well with sigmoid.
-    \item Compare: MSE + sigmoid $\Rightarrow$ $\pd{\ell}{z} = -2(y - \hat{y})\sigma'(z)$ \quad (vanishes when saturated!).
-\end{wideitemize}
-
 \vspace{6pt}
+\textbf{Why is this beautiful?}
+\begin{itemize}
+    \item No $\sigma'(z)$ term in the gradient!
+    \item Even when sigmoid saturates, gradient is large if prediction is wrong.
+    \item \textbf{Not a coincidence:} BCE was designed to pair with sigmoid.
+    \item Compare: MSE + sigmoid $\Rightarrow \pd{\ell}{z} = -2(y - \hat{y})\sigma'(z)$ -- vanishes!
+\end{itemize}
+
 \textbf{Lesson:} \textcolor{red}{Always pair the right loss with the right activation.}
 \end{frame}
 
@@ -836,27 +837,18 @@ Since $\hat{y} = z^{(2)}$: \quad $\pd{\mathcal{L}}{z^{(2)}} = -2(y - \hat{y})$. 
 
 \textbf{Step 2a:} Propagate error back to hidden layer. Using chain rule:
 \[
-    \pd{\mathcal{L}}{h_j} = \pd{\mathcal{L}}{z^{(2)}} \cdot \pd{z^{(2)}}{h_j} = \delta^{(2)} \cdot w_j^{(2)}
+    \pd{\mathcal{L}}{h_j} = \delta^{(2)} \cdot \pd{z^{(2)}}{h_j} = \delta^{(2)} \cdot w_j^{(2)}
 \]
 
 \textbf{Step 2b:} Pass through the activation function:
 \[
-    \pd{\mathcal{L}}{z_j^{(1)}} = \pd{\mathcal{L}}{h_j} \cdot \pd{h_j}{z_j^{(1)}} = \delta^{(2)} \cdot w_j^{(2)} \cdot \sigma'(z_j^{(1)})
+    \pd{\mathcal{L}}{z_j^{(1)}} = \pd{\mathcal{L}}{h_j} \cdot \sigma'(z_j^{(1)}) = \delta^{(2)} \cdot w_j^{(2)} \cdot \sigma'(z_j^{(1)}) \;\equiv\; \textcolor{red}{\delta_j^{(1)}}
 \]
 
-Define $\textcolor{red}{\delta_j^{(1)} \equiv \delta^{(2)} \cdot w_j^{(2)} \cdot \sigma'(z_j^{(1)})}$.
-
-\vspace{8pt}
-\textbf{Step 2c:} Gradient w.r.t.\ hidden layer parameters:
+\textbf{Step 2c:} Gradients w.r.t.\ hidden layer parameters (since $z_j^{(1)} = \sum_k W_{jk}^{(1)} x_k + b_j^{(1)}$):
 \[
-    z_j^{(1)} = \sum_{k=1}^{d} W_{jk}^{(1)} x_k + b_j^{(1)}
-\]
-
-\[
-    \pd{\mathcal{L}}{W_{jk}^{(1)}} = \delta_j^{(1)} \cdot x_k \qquad \Rightarrow \qquad \textcolor{red}{\pd{\mathcal{L}}{\vW^{(1)}} = \bm{\delta}^{(1)} \vx^\top}
-\]
-
-\[
+    \pd{\mathcal{L}}{W_{jk}^{(1)}} = \delta_j^{(1)} \cdot x_k \quad \Rightarrow \quad \textcolor{red}{\pd{\mathcal{L}}{\vW^{(1)}} = \bm{\delta}^{(1)} \vx^\top}
+    \qquad
     \pd{\mathcal{L}}{b_j^{(1)}} = \textcolor{red}{\delta_j^{(1)}}
 \]
 \end{frame}
@@ -960,32 +952,30 @@ Here $\odot$ denotes element-wise (Hadamard) product and $\vh^{(0)} = \vx$.
 \begin{frame}
 \frametitle{Backpropagation: Numerical Example (Part 2)}
 
-\textbf{Backward pass:}
+\textbf{Backward pass} (work right-to-left through the network):
 
-\vspace{4pt}
-\textbf{Step 1:} Error at output:
+\vspace{2pt}
+\textbf{Step 1 -- Error at output:}
 \[
-    \delta^{(2)} = \pd{\mathcal{L}}{z^{(2)}} = -2(y - \hat{y}) = -2(1.0 - (-0.0251)) = \textcolor{red}{-2.0502}
+    \delta^{(2)} = -2(y - \hat{y}) = -2(1.0 - (-0.0251)) = \textcolor{red}{-2.0502}
 \]
 
-\textbf{Step 2:} Gradients for output layer:
+\textbf{Step 2 -- Output layer gradients:}
 \[
-    \pd{\mathcal{L}}{w^{(2)}} = \delta^{(2)} \cdot h = -2.0502 \cdot 0.7503 = \textcolor{red}{-1.5383}
-\]
-\[
+    \pd{\mathcal{L}}{w^{(2)}} = \delta^{(2)} \cdot h = (-2.0502)(0.7503) = \textcolor{red}{-1.5383}
+    \qquad
     \pd{\mathcal{L}}{b^{(2)}} = \delta^{(2)} = \textcolor{red}{-2.0502}
 \]
 
-\textbf{Step 3:} Error at hidden layer:
+\textbf{Step 3 -- Error at hidden layer:}
 \[
-    \delta^{(1)} = \delta^{(2)} \cdot w^{(2)} \cdot \sigma'(z^{(1)}) = -2.0502 \cdot (-0.3) \cdot 0.7503 \cdot (1 - 0.7503) = \textcolor{red}{0.1154}
+    \delta^{(1)} = \delta^{(2)} \cdot w^{(2)} \cdot \sigma'(z^{(1)}) = (-2.0502)(-0.3)(0.7503)(1 - 0.7503) = \textcolor{red}{0.1154}
 \]
 
-\textbf{Step 4:} Gradients for hidden layer:
+\textbf{Step 4 -- Hidden layer gradients:}
 \[
-    \pd{\mathcal{L}}{w^{(1)}} = \delta^{(1)} \cdot x = 0.1154 \cdot 2.0 = \textcolor{red}{0.2307}
-\]
-\[
+    \pd{\mathcal{L}}{w^{(1)}} = \delta^{(1)} \cdot x = (0.1154)(2.0) = \textcolor{red}{0.2307}
+    \qquad
     \pd{\mathcal{L}}{b^{(1)}} = \delta^{(1)} = \textcolor{red}{0.1154}
 \]
 \end{frame}
@@ -1028,53 +1018,40 @@ $b^{(1)}$ & $0.1000$ & $0.1154$ & $0.0885$ \\
 
 In practice, we work with \textbf{matrices}, not individual weights.
 
-\vspace{6pt}
-\textbf{Key identities} (for layer $l$):
-
 \vspace{4pt}
-If $\vz^{(l)} = \vW^{(l)}\vh^{(l-1)} + \vb^{(l)}$, then:
+\textbf{Key identities} (for layer $l$, with $\vz^{(l)} = \vW^{(l)}\vh^{(l-1)} + \vb^{(l)}$):
 
 \begin{align*}
-    \pd{\mathcal{L}}{\vW^{(l)}} &= \bm{\delta}^{(l)} \cdot (\vh^{(l-1)})^\top && \in \R^{m^{(l)} \times m^{(l-1)}} \\[8pt]
-    \pd{\mathcal{L}}{\vb^{(l)}} &= \bm{\delta}^{(l)} && \in \R^{m^{(l)}} \\[8pt]
+    \pd{\mathcal{L}}{\vW^{(l)}} &= \bm{\delta}^{(l)} (\vh^{(l-1)})^\top && \in \R^{m^{(l)} \times m^{(l-1)}} \\[2pt]
+    \pd{\mathcal{L}}{\vb^{(l)}} &= \bm{\delta}^{(l)} && \in \R^{m^{(l)}} \\[2pt]
     \pd{\mathcal{L}}{\vh^{(l-1)}} &= (\vW^{(l)})^\top \bm{\delta}^{(l)} && \in \R^{m^{(l-1)}}
 \end{align*}
 
-\vspace{6pt}
-\textbf{Why outer product?} Each $\delta_j^{(l)}$ pairs with each $h_k^{(l-1)}$:
-\[
-    \pd{\mathcal{L}}{W_{jk}^{(l)}} = \delta_j^{(l)} \cdot h_k^{(l-1)} \quad \Rightarrow \quad \pd{\mathcal{L}}{\vW^{(l)}} = \bm{\delta}^{(l)} (\vh^{(l-1)})^\top
-\]
+\textbf{Why outer product?} Each $\delta_j^{(l)}$ pairs with each $h_k^{(l-1)}$: \quad $\pd{\mathcal{L}}{W_{jk}^{(l)}} = \delta_j^{(l)} \cdot h_k^{(l-1)}$.
 
 \vspace{4pt}
-\textcolor{red}{Same gradient shape as the parameter:} $\pd{\mathcal{L}}{\vW^{(l)}}$ has the same dimensions as $\vW^{(l)}$.
+\textcolor{red}{The gradient $\pd{\mathcal{L}}{\vW^{(l)}}$ has the same shape as $\vW^{(l)}$.}
 \end{frame}
 
 % ---- Backprop Complexity ----
 \begin{frame}
 \frametitle{Computational Cost of Backpropagation}
 
-\begin{wideitemize}
-    \item \textbf{Forward pass cost:} $O\!\left(\sum_{l=1}^{L} m^{(l)} \cdot m^{(l-1)}\right)$ \quad (matrix-vector products).
+\begin{itemize}
+    \item \textbf{Forward pass cost:} $O\!\left(\sum_{l=1}^{L} m^{(l)} m^{(l-1)}\right)$ (matrix-vector products).
+    \item \textbf{Backward pass cost:} same order as forward pass.
+    \item \textbf{Memory cost:} must store all $\vz^{(l)}, \vh^{(l)}$ during forward pass.
+    \item \textbf{Total:} backprop is roughly \textbf{2x} the cost of the forward pass.
+\end{itemize}
 
-    \item \textbf{Backward pass cost:} same order as forward pass!
-    \begin{itemize}
-        \item Each layer: one matrix-vector product $(\vW^{(l)})^\top \bm{\delta}^{(l)}$.
-        \item Plus one outer product $\bm{\delta}^{(l)}(\vh^{(l-1)})^\top$.
-    \end{itemize}
-
-    \item \textbf{Memory cost:} must store all intermediate $\vz^{(l)}$, $\vh^{(l)}$ during forward pass.
-
-    \item \textbf{Total:} Backpropagation is roughly \textbf{2x the cost of the forward pass}.
-\end{wideitemize}
-
-\vspace{8pt}
+\vspace{4pt}
 \begin{tikzpicture}
 \node [mybox] (box){%
     \begin{minipage}{0.93\textwidth}
-    \textbf{Before backpropagation} (1986): computing gradients for a network with $P$ parameters required $O(P)$ separate forward passes (one per parameter).
+    \vspace{-4pt}
+    \textbf{Before backprop} (1986): computing gradients for a network with $P$ parameters required $O(P)$ separate forward passes.
 
-    \textbf{With backpropagation:} \textcolor{red}{all gradients in one backward pass} --- $O(1)$ relative to forward pass.
+    \textbf{With backprop:} \textcolor{red}{all gradients in one backward pass}.
     \end{minipage}
 };
 \node[fancytitle, right=10pt] at (box.north west) {Historical Significance};
@@ -1180,12 +1157,12 @@ SGD & $B = 1$ & High & Fast \\
 \end{tabular}
 \end{center}
 
-\vspace{4pt}
+\vspace{2pt}
 \textbf{Why mini-batches work so well:}
 \begin{itemize}
-    \item GPUs are optimized for \textbf{parallel matrix operations} --- processing 32 samples is almost as fast as 1.
-    \item Noise is reduced by factor $\frac{1}{\sqrt{B}}$ vs.\ pure SGD.
-    \item Typical batch sizes: \textbf{32, 64, 128, 256} (powers of 2 for GPU efficiency).
+    \item GPUs handle parallel matmul --- 32 samples $\approx$ as fast as 1.
+    \item Noise reduced by factor $\frac{1}{\sqrt{B}}$ vs.\ pure SGD.
+    \item Typical: $B = 32, 64, 128, 256$ (powers of 2 for GPU efficiency).
 \end{itemize}
 \end{frame}
 
@@ -1232,19 +1209,21 @@ Pure SGD oscillates due to noisy gradients. \textbf{Momentum} smooths the trajec
 \begin{tikzpicture}
 \node [mybox] (box){%
     \begin{minipage}{0.93\textwidth}
+    \vspace{-6pt}
     \[
-        \mathbf{v}_t = \beta \, \mathbf{v}_{t-1} + \nabla_{\vw}\mathcal{L}(\vw_t) \qquad \vw_{t+1} = \vw_t - \alpha \, \mathbf{v}_t
+        \mathbf{v}_t = \beta \mathbf{v}_{t-1} + \nabla_{\vw}\mathcal{L}(\vw_t) \qquad \vw_{t+1} = \vw_t - \alpha \mathbf{v}_t
     \]
+    \vspace{-8pt}
     where $\beta \in [0, 1)$ is the momentum coefficient (typically $\beta = 0.9$).
     \end{minipage}
 };
 \node[fancytitle, right=10pt] at (box.north west) {Momentum Update};
 \end{tikzpicture}
 
-\vspace{6pt}
-\textbf{Intuition:} Think of a ball rolling down a hill. Momentum accumulates past gradients, so the ball ``rolls through'' small bumps instead of getting stuck.
+\vspace{4pt}
+\textbf{Intuition:} a ball rolling down a hill. Momentum accumulates past gradients, so it ``rolls through'' small bumps.
 
-\vspace{6pt}
+\vspace{2pt}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \centering
@@ -1293,30 +1272,23 @@ Pure SGD oscillates due to noisy gradients. \textbf{Momentum} smooths the trajec
 
 \textbf{PyTorch does backpropagation automatically} via \texttt{autograd}.
 
-\vspace{4pt}
 \begin{lstlisting}
 import torch
 import torch.nn as nn
 
 # 2-layer network: 3 inputs -> 4 hidden (ReLU) -> 1 output
 model = nn.Sequential(
-    nn.Linear(3, 4),     # W1: 4x3, b1: 4   -> 16 params
+    nn.Linear(3, 4),     # W1: 4x3, b1: 4 -> 16 params
     nn.ReLU(),
-    nn.Linear(4, 1),     # W2: 1x4, b2: 1   -> 5 params
-)                        # Total: 21 parameters
+    nn.Linear(4, 1))     # W2: 1x4, b2: 1 -> 5 params (Total: 21)
 
-# Forward pass
-x = torch.randn(1, 3)        # 1 sample, 3 features
-y_true = torch.tensor([[1.0]])
-y_pred = model(x)
+# Forward pass + loss
+x = torch.randn(1, 3); y_true = torch.tensor([[1.0]])
+loss = nn.MSELoss()(model(x), y_true)
 
-# Compute loss
-loss = nn.MSELoss()(y_pred, y_true)
-
-# Backward pass -- computes ALL gradients automatically!
+# Backward pass -- ALL gradients computed automatically!
 loss.backward()
 
-# Inspect gradients
 for name, param in model.named_parameters():
     print(f"{name}: grad shape = {param.grad.shape}")
 \end{lstlisting}
@@ -1331,29 +1303,24 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
-# Simulated economic data: 3 features -> predict outcome
-X = torch.randn(1000, 3)             # 1000 samples, 3 features
+# Simulated economic data: 3 features -> outcome
+X = torch.randn(1000, 3)
 y = (2*X[:,0] - X[:,1] + 0.5*X[:,2] + torch.randn(1000)*0.1).unsqueeze(1)
 
-# DataLoader for mini-batch SGD
-dataset = TensorDataset(X, y)
-loader = DataLoader(dataset, batch_size=32, shuffle=True)
+# Mini-batch DataLoader
+loader = DataLoader(TensorDataset(X, y), batch_size=32, shuffle=True)
 
 # Model, loss, optimizer
 model = nn.Sequential(nn.Linear(3, 16), nn.ReLU(),
-                      nn.Linear(16, 8), nn.ReLU(),
-                      nn.Linear(8, 1))
+                      nn.Linear(16, 8), nn.ReLU(), nn.Linear(8, 1))
 criterion = nn.MSELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
 
 # Training loop
 for epoch in range(50):
     for X_batch, y_batch in loader:
-        y_pred = model(X_batch)         # Forward
-        loss = criterion(y_pred, y_batch)
-        optimizer.zero_grad()           # Reset gradients
-        loss.backward()                 # Backward (backpropagation!)
-        optimizer.step()                # Update: w <- w - alpha * grad
+        loss = criterion(model(X_batch), y_batch)
+        optimizer.zero_grad(); loss.backward(); optimizer.step()
 \end{lstlisting}
 \end{frame}
 
@@ -1368,29 +1335,16 @@ losses = []
 for epoch in range(100):
     epoch_loss = 0
     for X_batch, y_batch in loader:
-        y_pred = model(X_batch)
-        loss = criterion(y_pred, y_batch)
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+        loss = criterion(model(X_batch), y_batch)
+        optimizer.zero_grad(); loss.backward(); optimizer.step()
         epoch_loss += loss.item()
     losses.append(epoch_loss / len(loader))
 
-plt.plot(losses)
-plt.xlabel('Epoch')
-plt.ylabel('MSE Loss')
-plt.title('Training Loss Curve')
-plt.grid(True)
-plt.show()
+plt.plot(losses); plt.xlabel('Epoch'); plt.ylabel('MSE Loss')
+plt.title('Training Loss Curve'); plt.grid(True); plt.show()
 \end{lstlisting}
 
-\vspace{4pt}
-\textbf{What to look for:}
-\begin{itemize}
-    \item Loss should \textbf{decrease} over epochs.
-    \item If it oscillates wildly: learning rate is too large.
-    \item If it decreases very slowly: learning rate is too small.
-\end{itemize}
+\textbf{What to look for:} loss should decrease; oscillations $\Rightarrow$ LR too large; slow decrease $\Rightarrow$ LR too small.
 \end{frame}
 
 
@@ -1431,26 +1385,21 @@ plt.show()
 \frametitle{Next Lecture: SGD, Regularization \& Generalization}
 
 \textbf{Lecture 3} (Monday, April 20):
-\begin{wideitemize}
+\begin{itemize}
     \item Advanced optimizers: Adam, AdaGrad, RMSProp.
     \item Regularization: L1, L2 (weight decay), dropout.
     \item Batch normalization.
-    \item The Universal Approximation Theorem.
-    \item Why depth matters more than width.
-    \item Practical tips: learning rate schedules, early stopping.
-\end{wideitemize}
-
-\vspace{10pt}
-\textbf{Recommended reading:}
-\begin{itemize}
-    \item Goodfellow et al., \textit{Deep Learning}, Chapter 6.5 (Backpropagation), Chapter 8 (Optimization).
-    \item Zhang et al., \textit{Dive into Deep Learning}, Chapter 5 (\url{https://d2l.ai}).
+    \item Universal Approximation Theorem; why depth matters.
+    \item Practical tips: LR schedules, early stopping.
 \end{itemize}
 
-\vspace{10pt}
-\textbf{Homework 1} will be released after Lecture 3 (due Sunday, April 27).
+\vspace{6pt}
+\textbf{Recommended reading:} Goodfellow et al., \textit{Deep Learning}, Ch.\ 6.5 + Ch.\ 8. Zhang et al., \textit{D2L}, Ch.\ 5 (\url{https://d2l.ai}).
 
 \vspace{6pt}
+\textbf{Homework 1} will be released after Lecture 3 (due Sunday, April 27).
+
+\vspace{4pt}
 \begin{center}
 \Large \textcolor{blue}{\textbf{Questions?}}
 \end{center}

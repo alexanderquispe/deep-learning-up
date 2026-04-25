@@ -6,7 +6,11 @@
       "Bash(pdflatex -interaction=nonstopmode lecture_1_slides.tex)",
       "Bash(pdflatex -interaction=nonstopmode -jobname=lecture_1_slides_v2 lecture_1_slides.tex)",
       "Bash(pdflatex -interaction=nonstopmode -jobname=test lecture_1_slides.tex)",
-      "Bash(pdflatex -interaction=nonstopmode lecture_2_slides.tex)"
+      "Bash(pdflatex -interaction=nonstopmode lecture_2_slides.tex)",
+      "Bash(pdflatex -interaction=nonstopmode lecture_3_slides.tex)",
+      "Bash(grep -E \"Overfull \\\\\\\\\\\\\\\\vbox|Underfull \\\\\\\\\\\\\\\\vbox\")",
+      "Bash(grep -E \"Overfull|Underfull \\\\\\\\\\\\\\\\vbox\" lecture_3_slides.log)",
+      "Bash(grep -c \"Overfull \\\\\\\\\\\\\\\\vbox\\\\|Overfull \\\\\\\\\\\\\\\\hbox\" lecture_3_slides.log)"
     ]
   }
 }

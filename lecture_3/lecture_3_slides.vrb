@@ -1,0 +1,25 @@
+\frametitle{Using GPUs in PyTorch}
+
+\begin{lstlisting}
+import torch
+
+# Check if GPU is available
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(f"Using device: {device}")
+
+# Move tensors to GPU
+x = torch.randn(1000, 1000).to(device)
+y = torch.randn(1000, 1000).to(device)
+z = x @ y                    # Matmul on GPU
+
+# Move model to GPU
+model = MyNeuralNetwork().to(device)
+
+# Move batches to GPU during training
+for X_batch, y_batch in loader:
+    X_batch, y_batch = X_batch.to(device), y_batch.to(device)
+    y_pred = model(X_batch)
+    loss = criterion(y_pred, y_batch)
+\end{lstlisting}
+
+\textbf{Rule:} both model and data must be on the \textbf{same device}.

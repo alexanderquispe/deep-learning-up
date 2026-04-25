@@ -7,26 +7,13 @@ losses = []
 for epoch in range(100):
     epoch_loss = 0
     for X_batch, y_batch in loader:
-        y_pred = model(X_batch)
-        loss = criterion(y_pred, y_batch)
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+        loss = criterion(model(X_batch), y_batch)
+        optimizer.zero_grad(); loss.backward(); optimizer.step()
         epoch_loss += loss.item()
     losses.append(epoch_loss / len(loader))
 
-plt.plot(losses)
-plt.xlabel('Epoch')
-plt.ylabel('MSE Loss')
-plt.title('Training Loss Curve')
-plt.grid(True)
-plt.show()
+plt.plot(losses); plt.xlabel('Epoch'); plt.ylabel('MSE Loss')
+plt.title('Training Loss Curve'); plt.grid(True); plt.show()
 \end{lstlisting}
 
-\vspace{4pt}
-\textbf{What to look for:}
-\begin{itemize}
-    \item Loss should \textbf{decrease} over epochs.
-    \item If it oscillates wildly: learning rate is too large.
-    \item If it decreases very slowly: learning rate is too small.
-\end{itemize}
+\textbf{What to look for:} loss should decrease; oscillations $\Rightarrow$ LR too large; slow decrease $\Rightarrow$ LR too small.
