@@ -71,12 +71,12 @@ Slides for each session are kept in their corresponding folder as compiled LaTeX
 
 Each lab includes a problem statement and a starter / reference script. Submissions must include the dataset used and the corresponding script (`.py` or `.ipynb`).
 
-| # | Topic | Lab | Script |
+| # | Title | Lab | Script |
 |---|-------|-----|--------|
-| 1 | Feedforward Neural Networks | [Lab 1](https://drive.google.com/file/d/1ITzCJcMFLgdyyliXE7TiosXiW7w9o_WY/view?usp=sharing) | [Script 1](https://drive.google.com/file/d/1UyWKRxD4ydZXFG1E19DQ8-k-OLdGzAaZ/view?usp=sharing) |
-| 2 | CNNs and RNNs Applied to Economic Data | [Lab 2](https://drive.google.com/file/d/1lYNrY9m5x4QFSd_Yg7G0bXWMJPLtoMZd/view?usp=sharing) | [Script 2](https://drive.google.com/file/d/1TkbJv87N_-ND0Ek19dfc_5ZNQl_cejYJ/view?usp=sharing) |
-| 3 | Transformers and Natural Language Processing | *Coming soon* | *Coming soon* |
-| 4 | LLMs and Foundation Models | *Coming soon* | *Coming soon* |
+| 1 | Lab 1 | [Lab 1](https://drive.google.com/file/d/1ITzCJcMFLgdyyliXE7TiosXiW7w9o_WY/view?usp=sharing) | [Script 1](https://drive.google.com/file/d/1UyWKRxD4ydZXFG1E19DQ8-k-OLdGzAaZ/view?usp=sharing) |
+| 2 | Lab 2 | [Lab 2](https://drive.google.com/file/d/1lYNrY9m5x4QFSd_Yg7G0bXWMJPLtoMZd/view?usp=sharing) | [Script 2](https://drive.google.com/file/d/1TkbJv87N_-ND0Ek19dfc_5ZNQl_cejYJ/view?usp=sharing) |
+| 3 | Lab 3 | *Coming soon* | *Coming soon* |
+| 4 | Lab 4 | *Coming soon* | *Coming soon* |
 
 ---
 
