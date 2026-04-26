@@ -42,13 +42,13 @@ By the end of the course, students will be able to:
 |---|-------|------|-------------|
 | 1 | Introduction to Deep Learning and Perceptrons | Mon, Apr 13 — 7:30–10:00 PM | |
 | 2 | Non-linearities, Loss Functions, Backpropagation, Gradient Descent | Fri, Apr 17 — 7:30–10:00 PM | |
-| 3 | Training: SGD, Regularization, Generalization | Mon, Apr 20 — 7:30–10:00 PM | **Lab 1** due Sun, Apr 27 |
+| 3 | Training: SGD, Regularization, Generalization | Mon, Apr 20 — 7:30–10:00 PM | **Practice 1** due Sun, Apr 27 |
 | 4 | Convolutional Neural Networks (CNNs) | Sat, Apr 25 — 8:30–11:00 AM | |
-| 5 | Word Embeddings (Word2Vec) and Recurrent Neural Networks | Mon, Apr 27 — 7:30–10:00 PM | **Lab 2** due Sun, May 4 |
+| 5 | Word Embeddings (Word2Vec) and Recurrent Neural Networks | Mon, Apr 27 — 7:30–10:00 PM | **Practice 2** due Sun, May 4 |
 | 6 | Attention and Self-Attention Mechanisms | Sat, May 2 — 8:30–11:00 AM | |
-| 7 | Transformers | Sat, May 9 — 8:30–11:00 PM | **Lab 3** due Sun, May 11 |
+| 7 | Transformers | Sat, May 9 — 8:30–11:00 PM | **Practice 3** due Sun, May 11 |
 | 8 | Large Language Models (LLMs) and Applications in Economics | Sat, May 16 — 8:30–11:00 AM | |
-| 9 | Foundation Models: CLIP, DINO, Transfer Learning | Mon, May 18 — 7:30–9:30 PM | **Lab 4** due Mon, May 18 |
+| 9 | Foundation Models: CLIP, DINO, Transfer Learning | Mon, May 18 — 7:30–9:30 PM | **Practice 4** due Mon, May 18 |
 | 10 | **Final Oral Exam** (10 min, 2 questions per student) | Fri, May 22 — 7:30–9:30 PM | **Final Exam** |
 
 ---
@@ -67,10 +67,10 @@ Slides for each session are kept in their corresponding folder as compiled LaTeX
 
 ---
 
-## Labs and Scripts
+## Lab Sessions
 
 > [!IMPORTANT]
-> **Course deliverables live here.** Each lab includes a problem statement and a starter / reference script. Submissions must include the dataset used and the corresponding script (`.py` or `.ipynb`). See the [Schedule](#schedule) for due dates and the [Evaluation](#evaluation) section for the late policy.
+> **Practical class materials.** Lab sessions are hands-on classes held during the practice schedule. Each session includes a recording (video), a lab guide, and the script worked through in class. **These are NOT graded deliverables** — see [Practices (Graded Assignments)](#practices-graded-assignments) for the homework students must submit.
 
 | # | Video | Lab | Script |
 |---|-------|-----|--------|
@@ -81,15 +81,29 @@ Slides for each session are kept in their corresponding folder as compiled LaTeX
 
 ---
 
+## Practices (Graded Assignments)
+
+> [!IMPORTANT]
+> **These are the graded deliverables of the course (60% of the final grade).** Each practice is a take-home assignment. Students must submit the dataset used and the corresponding script (`.py` or `.ipynb`). See the [Evaluation](#evaluation) section for the late policy.
+
+| # | Topic | Due Date | Weight |
+|---|-------|----------|-------:|
+| 1 | Feedforward Neural Networks | Sun, Apr 27 | 15% |
+| 2 | CNNs and RNNs Applied to Economic Data | Sun, May 4 | 15% |
+| 3 | Transformers and Natural Language Processing | Sun, May 11 | 15% |
+| 4 | LLMs and Foundation Models | Mon, May 18 | 15% |
+
+---
+
 ## Evaluation
 
 | Component | Weight |
 |-----------|-------:|
 | Attendance / Participation | 10% |
-| Lab 1 — Feedforward Neural Networks | 15% |
-| Lab 2 — CNNs and RNNs | 15% |
-| Lab 3 — Transformers and NLP | 15% |
-| Lab 4 — LLMs and Foundation Models | 15% |
+| Practice 1 — Feedforward Neural Networks | 15% |
+| Practice 2 — CNNs and RNNs | 15% |
+| Practice 3 — Transformers and NLP | 15% |
+| Practice 4 — LLMs and Foundation Models | 15% |
 | Final oral exam | 30% |
 
 **Late policy:** 2 points (out of 20) deducted per day late. After 3 days, the lab is not accepted (grade = 0).
