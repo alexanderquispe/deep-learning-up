@@ -1,0 +1,302 @@
+\documentclass[11pt,letterpaper]{article}
+
+% =====================================================================
+% Homework 1 - Theory part
+% Course: Deep Learning - Universidad del Pacifico (UP)
+% Instructor: Alexander Quispe
+% =====================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta, calc}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% --- Style ----------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Deep Learning -- UP}
+\fancyhead[R]{\small Homework 1 (Theory)}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\titleformat{\section}{\large\bfseries}{Problem \thesection.}{0.5em}{}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.4em}
+
+% --- Macros ---------------------------------------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\softmax}{\mathrm{softmax}}
+\newcommand{\relu}{\mathrm{ReLU}}
+\newcommand{\diag}{\mathrm{diag}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand{\pts}[1]{\textit{(#1 pts)}\;}
+\newcommand{\note}[1]{\textit{\small Note: #1}}
+
+% =====================================================================
+\title{\vspace{-1.5cm}\textbf{Homework 1 -- Theory Part}\\[0.3em]
+       \large Deep Learning -- Universidad del Pac\'ifico}
+\author{Alexander Quispe}
+\date{Due date: TBD}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\section*{Instructions}
+
+\begin{itemize}[leftmargin=1.5em]
+  \item This part covers topics from \textbf{Lectures 1, 2 and 3}, complemented
+        with exercises adapted from the Caltech \emph{Learning From Data}
+        Problem Set 4 (Yaser S. Abu-Mostafa).
+  \item There are \textbf{6 problems} worth \textbf{100 points} in total.
+  \item Justify every step. A correct final answer without derivation does not
+        receive full credit.
+  \item You may submit handwritten (clear scan/photo) or typeset in LaTeX.
+        LaTeX is preferred.
+  \item For network-design problems (3 and 4) you may include a diagram
+        (TikZ, hand-drawn scan, or equivalent).
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{|c|l|c|}
+\hline
+\textbf{\#} & \textbf{Topic} & \textbf{Points} \\
+\hline
+1 & Manual backpropagation of a 2-layer network        & 21 \\
+2 & Activation functions and the vanishing gradient    & 16 \\
+3 & Building OR with ReLU (Caltech)                    & 12 \\
+4 & Building XOR with ReLU (Caltech)                   & 19 \\
+5 & Weight initialization (Xavier and He)              & 16 \\
+6 & The Adam optimizer: bias correction                & 16 \\
+\hline
+\multicolumn{2}{|r|}{\textbf{Total}} & \textbf{100} \\
+\hline
+\end{tabular}
+\end{center}
+
+\hrulefill
+
+% =====================================================================
+\section{Manual backpropagation of a 2-layer network \pts{21}}
+
+Consider a fully connected network with the following architecture:
+
+\begin{itemize}[leftmargin=1.5em, itemsep=0pt]
+  \item Input: $\mathbf{x} \in \R^{d}$.
+  \item Hidden layer: $\mathbf{z}^{(1)} = W^{(1)} \mathbf{x} + \mathbf{b}^{(1)}$,
+        with $W^{(1)} \in \R^{H \times d}$, $\mathbf{b}^{(1)} \in \R^{H}$, and
+        activation $\mathbf{h} = \sigma(\mathbf{z}^{(1)})$ where $\sigma$ is the
+        sigmoid applied element-wise.
+  \item Output layer: $z^{(2)} = \mathbf{w}^{(2)\top} \mathbf{h} + b^{(2)}$,
+        with $\mathbf{w}^{(2)} \in \R^{H}$, $b^{(2)} \in \R$, and prediction
+        $\hat{y} = \sigma(z^{(2)})$.
+  \item Loss: \emph{binary cross-entropy}
+        $\mathcal{L} = -\,y \log \hat{y} - (1-y)\log(1-\hat{y})$, with $y \in \{0,1\}$.
+\end{itemize}
+
+\textbf{(a)} \pts{5} Show that for this combination (sigmoid + BCE):
+$$
+\frac{\partial \mathcal{L}}{\partial z^{(2)}} \;=\; \hat{y} - y.
+$$
+
+\textbf{(b)} \pts{7} Compute the gradients
+$\dfrac{\partial \mathcal{L}}{\partial \mathbf{w}^{(2)}}$ and
+$\dfrac{\partial \mathcal{L}}{\partial b^{(2)}}$.
+State the shape of each tensor.
+
+\textbf{(c)} \pts{7} Compute the gradients
+$\dfrac{\partial \mathcal{L}}{\partial W^{(1)}}$ and
+$\dfrac{\partial \mathcal{L}}{\partial \mathbf{b}^{(1)}}$ via the chain rule.
+Identify the factor $\sigma'(\mathbf{z}^{(1)})$ and express it as
+$\mathbf{h} \odot (1 - \mathbf{h})$.
+
+\textbf{(d)} \pts{2} Argue why \emph{a single} backward pass is enough to
+compute every gradient, and why a finite-difference estimate would be
+$\mathcal{O}(P)$ times more expensive, where $P$ is the total number of
+parameters.
+
+% =====================================================================
+\section{Activation functions and the vanishing gradient \pts{16}}
+
+\textbf{(a)} \pts{5} Compute the derivatives of the following activations,
+expressing the result \emph{in terms of the activation itself} whenever possible:
+\begin{itemize}[leftmargin=1.5em, itemsep=0pt]
+  \item $\sigma(z) = \dfrac{1}{1+e^{-z}}$
+  \item $\tanh(z)$
+  \item $\relu(z) = \max(0, z)$
+\end{itemize}
+
+\textbf{(b)} \pts{3} Show that $\sigma'(z)$ attains its maximum at $z=0$ with
+value $1/4$. Conclude that in a deep \textbf{sigmoid} network the magnitude of
+the gradient reaching the first layer is upper bounded by
+$$
+\left\| \nabla_{W^{(1)}} \mathcal{L} \right\| \;\leq\; C \cdot (1/4)^{L},
+$$
+for some $C > 0$ that depends on the remaining weights, where $L$ is the number
+of hidden layers. Briefly discuss the practical implication.
+
+\textbf{(c)} \pts{3} For $\tanh$ the analogous factor is $1$ (at $z=0$).
+\textbf{Why}, in practice, does $\tanh$ still fail to fully solve the vanishing
+gradient problem in very deep networks?
+
+\textbf{(d)} \pts{5} ReLU avoids the vanishing gradient but introduces the
+\emph{Dying ReLU} problem.
+\begin{enumerate}[label=(\roman*), leftmargin=2em, itemsep=2pt]
+  \item Formally define when a ReLU unit is \emph{dead}.
+  \item If a unit is dead over the entire dataset, \textbf{what is its
+        gradient} with respect to $W^{(1)}$? What does this imply for the
+        weight update?
+  \item Mention \emph{two} standard strategies (from class or from the Caltech
+        problem set 4) to mitigate this problem.
+\end{enumerate}
+
+% =====================================================================
+\section{Building OR with ReLU \pts{12}}
+
+\note{Adapted from Caltech Problem Set 4, Section 1.D.}
+
+Design a \textbf{fully connected ReLU network} that implements the OR function
+on binary inputs $x_1, x_2 \in \{0, 1\}$. The output $f(x_1, x_2)$ must satisfy:
+$$
+\begin{aligned}
+\text{OR}(0,0) &= 0, & \text{OR}(0,1) \;\geq\; 1, \\
+\text{OR}(1,0) &\geq 1, & \text{OR}(1,1) \;\geq\; 1.
+\end{aligned}
+$$
+
+\textbf{(a)} \pts{7} Provide the exact weights and biases. Use the
+\textbf{minimum number of hidden units} possible (justify the minimum). You may
+draw the network or write the matrices/vectors.
+
+\textbf{(b)} \pts{5} Verify your network on the truth table by explicitly
+evaluating it on the four inputs and showing the per-layer computation.
+
+% =====================================================================
+\section{Building XOR with ReLU \pts{19}}
+
+\note{Adapted from Caltech Problem Set 4, Section 1.E.}
+
+Design a \textbf{fully connected ReLU network} that implements the XOR
+function on binary inputs:
+$$
+\begin{aligned}
+\text{XOR}(0,0) &= 0, & \text{XOR}(0,1) \;\geq\; 1, \\
+\text{XOR}(1,0) &\geq 1, & \text{XOR}(1,1) \;=\; 0.
+\end{aligned}
+$$
+
+\textbf{(a)} \pts{5} Prove formally that \textbf{no} network \emph{without
+hidden layers} (i.e., a single linear layer with a ReLU at the end) can
+implement XOR.
+\note{Hint: a function of the form $\relu(\mathbf{w}^\top \mathbf{x} + b)$ is
+convex in $\mathbf{x}$. \textbf{Is XOR convex?}}
+
+\textbf{(b)} \pts{5} State the \textbf{minimum number of hidden layers} that
+allows a ReLU network to implement XOR, and justify.
+
+\textbf{(c)} \pts{7} Build an explicit minimal network: specify weights,
+biases, and architecture.
+
+\textbf{(d)} \pts{2} Verify your construction on the four inputs by showing
+the computation.
+
+% =====================================================================
+\section{Weight initialization: Xavier and He \pts{16}}
+
+Consider a linear layer $\mathbf{z} = W \mathbf{x}$ with
+$W \in \R^{n_{\text{out}} \times n_{\text{in}}}$, and assume the inputs $x_i$
+are i.i.d.~with zero mean and variance $\sigma_x^2$, and the weights $W_{ij}$
+are i.i.d.~with zero mean, variance $\sigma_W^2$, and \textbf{independent of
+$\mathbf{x}$}.
+
+\textbf{(a)} \pts{5} Show that the variance of each component $z_k$ satisfies
+$$
+\Var(z_k) \;=\; n_{\text{in}}\, \sigma_W^2\, \sigma_x^2.
+$$
+\note{Recall that $\Var(\sum_i A_i) = \sum_i \Var(A_i)$ when the $A_i$ are independent.}
+
+\textbf{(b)} \pts{3} For $\Var(z_k) = \Var(x_i)$ to hold (i.e., for the signal
+to neither blow up nor vanish through the layer) it suffices to set
+$\sigma_W^2 = 1/n_{\text{in}}$. If we additionally want to preserve variance
+\emph{in the backward pass}, we obtain $\sigma_W^2 = 1/n_{\text{out}}$. The
+\textbf{Xavier/Glorot} initialization averages both conditions:
+$$
+\sigma_W^2 \;=\; \frac{2}{n_{\text{in}} + n_{\text{out}}}.
+$$
+In 3-5 lines, discuss \textbf{why} this compromise makes sense and which
+activation functions are its \emph{ideal case}.
+
+\textbf{(c)} \pts{5} For \textbf{ReLU} the derivation changes. Assuming
+$\mathbf{x}$ comes from a previous ReLU layer (so on average half of the
+components are zero) and that the pre-activation is symmetric around zero,
+show that preserving variance requires
+$$
+\sigma_W^2 \;=\; \frac{2}{n_{\text{in}}}\quad \text{(He et al., 2015)}.
+$$
+\note{Key fact: $\E[\relu(z)^2] = \tfrac{1}{2}\,\Var(z)$ when $z \sim \mathcal{N}(0, \Var(z))$.}
+
+\textbf{(d)} \pts{3} If you used \textbf{Xavier instead of He} in a deep ReLU
+network, what would happen to the variance of the activations as depth
+increases? Reason by computing the per-layer compression factor.
+
+% =====================================================================
+\section{The Adam optimizer: bias correction \pts{16}}
+
+Adam combines momentum and RMSProp with a \emph{bias correction} step. The
+updates are:
+\begin{align*}
+\mathbf{m}_t &= \beta_1\, \mathbf{m}_{t-1} + (1-\beta_1)\, \mathbf{g}_t, \\
+\mathbf{v}_t &= \beta_2\, \mathbf{v}_{t-1} + (1-\beta_2)\, \mathbf{g}_t^{\,2}, \\
+\hat{\mathbf{m}}_t &= \frac{\mathbf{m}_t}{1 - \beta_1^{\,t}}, \qquad
+\hat{\mathbf{v}}_t = \frac{\mathbf{v}_t}{1 - \beta_2^{\,t}}, \\
+\boldsymbol{\theta}_t &= \boldsymbol{\theta}_{t-1}
+        - \alpha \cdot \frac{\hat{\mathbf{m}}_t}{\sqrt{\hat{\mathbf{v}}_t} + \varepsilon},
+\end{align*}
+with $\mathbf{m}_0 = \mathbf{v}_0 = \mathbf{0}$ and $\beta_1, \beta_2 \in [0, 1)$.
+
+\textbf{(a)} \pts{5} Assume gradients are stationary, $\E[\mathbf{g}_t] = \mathbf{g}$
+for every $t$. Prove by induction that
+$$
+\E[\mathbf{m}_t] \;=\; (1 - \beta_1^{\,t})\, \mathbf{g}.
+$$
+Conclude that \textbf{without the correction} $\hat{\mathbf{m}}_t = \mathbf{m}_t / (1 - \beta_1^t)$
+the first iterations are biased toward zero.
+
+\textbf{(b)} \pts{5} Analogously, assuming $\E[\mathbf{g}_t^{\,2}] = \mathbf{v}$
+for every $t$, prove that
+$$
+\E[\mathbf{v}_t] \;=\; (1 - \beta_2^{\,t})\, \mathbf{v}.
+$$
+
+\textbf{(c)} \pts{3} With $\beta_1 = 0.9$, $\beta_2 = 0.999$, numerically
+evaluate the factors $1 - \beta_1^{\,t}$ and $1 - \beta_2^{\,t}$ for
+$t \in \{1, 5, 50, 500\}$ and comment on the regime where the correction
+\emph{stops mattering}.
+
+\textbf{(d)} \pts{3} Compare Adam with \textbf{SGD + Momentum}. Give
+\emph{one} situation where SGD+Momentum is preferable, and \emph{one} where
+Adam is. Justify both in terms of loss-surface geometry or data structure.
+
+% =====================================================================
+\vspace{1em}
+\hrulefill
+
+\begin{center}
+\textit{End of Homework 1 -- Theory Part}
+\end{center}
+
+\end{document}
