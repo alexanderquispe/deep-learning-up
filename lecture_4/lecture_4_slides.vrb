@@ -1,0 +1,26 @@
+\frametitle{Using a Pretrained ResNet}
+
+\textbf{Transfer learning:} use a network pretrained on ImageNet, fine-tune for your task.
+
+\vspace{4pt}
+\begin{lstlisting}
+import torch
+import torchvision.models as models
+import torch.nn as nn
+
+# Load pretrained ResNet-50
+model = models.resnet50(weights='IMAGENET1K_V2')
+
+# Freeze all parameters
+for param in model.parameters():
+    param.requires_grad = False
+
+# Replace the final FC layer for our task (e.g., 5 classes)
+model.fc = nn.Linear(model.fc.in_features, 5)
+
+# Only the new FC layer will be trained
+optimizer = torch.optim.Adam(model.fc.parameters(), lr=1e-3)
+\end{lstlisting}
+
+\vspace{4pt}
+\textbf{This is the technique used in Jean et al.\ (2016).}

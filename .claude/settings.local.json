@@ -10,7 +10,10 @@
       "Bash(pdflatex -interaction=nonstopmode lecture_3_slides.tex)",
       "Bash(grep -E \"Overfull \\\\\\\\\\\\\\\\vbox|Underfull \\\\\\\\\\\\\\\\vbox\")",
       "Bash(grep -E \"Overfull|Underfull \\\\\\\\\\\\\\\\vbox\" lecture_3_slides.log)",
-      "Bash(grep -c \"Overfull \\\\\\\\\\\\\\\\vbox\\\\|Overfull \\\\\\\\\\\\\\\\hbox\" lecture_3_slides.log)"
+      "Bash(grep -c \"Overfull \\\\\\\\\\\\\\\\vbox\\\\|Overfull \\\\\\\\\\\\\\\\hbox\" lecture_3_slides.log)",
+      "Bash(nvidia-smi *)",
+      "PowerShell(Get-WmiObject *)",
+      "Bash(pdflatex -interaction=nonstopmode lecture_4_slides.tex)"
     ]
   }
 }
