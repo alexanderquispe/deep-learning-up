@@ -13,7 +13,8 @@
       "Bash(grep -c \"Overfull \\\\\\\\\\\\\\\\vbox\\\\|Overfull \\\\\\\\\\\\\\\\hbox\" lecture_3_slides.log)",
       "Bash(nvidia-smi *)",
       "PowerShell(Get-WmiObject *)",
-      "Bash(pdflatex -interaction=nonstopmode lecture_4_slides.tex)"
+      "Bash(pdflatex -interaction=nonstopmode lecture_4_slides.tex)",
+      "Bash(pdflatex -interaction=nonstopmode lecture_5_slides.tex)"
     ]
   }
 }
