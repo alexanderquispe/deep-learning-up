@@ -1,0 +1,10 @@
+\beamer@sectionintoc {1}{Recap and Motivation}{3}{0}{1}
+\beamer@sectionintoc {2}{The RNN Idea: Adding Memory}{7}{0}{2}
+\beamer@sectionintoc {3}{Vanilla RNN Architecture and Math}{10}{0}{3}
+\beamer@sectionintoc {4}{Backpropagation Through Time}{15}{0}{4}
+\beamer@sectionintoc {5}{The Vanishing Gradient Problem}{19}{0}{5}
+\beamer@sectionintoc {6}{LSTM: The Solution}{23}{0}{6}
+\beamer@sectionintoc {7}{GRU: A Simpler Alternative}{29}{0}{7}
+\beamer@sectionintoc {8}{Applications in Economics}{32}{0}{8}
+\beamer@sectionintoc {9}{PyTorch Implementation}{35}{0}{9}
+\beamer@sectionintoc {10}{Summary and Next Steps}{39}{0}{10}

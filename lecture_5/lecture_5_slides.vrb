@@ -1,0 +1,26 @@
+\frametitle{LSTM for Time Series Prediction}
+
+\begin{lstlisting}
+class LSTMForecaster(nn.Module):
+    def __init__(self, input_size=1, hidden_size=64, num_layers=2):
+        super().__init__()
+        self.lstm = nn.LSTM(input_size, hidden_size, num_layers,
+                            batch_first=True, dropout=0.2)
+        self.fc = nn.Linear(hidden_size, 1)
+
+    def forward(self, x):
+        out, (h_n, c_n) = self.lstm(x)
+        return self.fc(out[:, -1, :])
+
+# Train on a sliding window of an economic indicator
+model = LSTMForecaster()
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+
+for epoch in range(100):
+    for x_batch, y_batch in loader:
+        y_pred = model(x_batch)
+        loss = nn.MSELoss()(y_pred, y_batch)
+        optimizer.zero_grad(); loss.backward()
+        torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)  # clip!
+        optimizer.step()
+\end{lstlisting}
