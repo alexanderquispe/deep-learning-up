@@ -78,6 +78,7 @@ Slides for each session are kept in their corresponding folder as compiled LaTeX
 | 2 | Video 2 | [Lab 2](https://drive.google.com/file/d/1lYNrY9m5x4QFSd_Yg7G0bXWMJPLtoMZd/view?usp=sharing) | [Script 2](https://drive.google.com/file/d/1TkbJv87N_-ND0Ek19dfc_5ZNQl_cejYJ/view?usp=sharing) |
 | 3 | Video 3 | [Lab 3](https://drive.google.com/file/d/17sOwxGR4V2upOiYeidmuVwpKH4p9UDsP/view?usp=sharing) | [Script 3](https://drive.google.com/file/d/1ohapHE2WeFvFYjfg6okWn0iMkrbqSTIp/view?usp=sharing) |
 | 4 | Video 4 | [Lab 4](https://www.youtube.com/watch?v=vYRlsYel54c) | [Script 4](https://drive.google.com/file/d/1jQDhHzd13bdKIBajbjUxB9JZLGcdiDty/view?usp=sharing) |
+| 5 | Video 5 | [Lab 5](https://www.youtube.com/watch?v=f_v-QTbuOU4) | [Script 5](https://colab.research.google.com/drive/1dsU7210oeIz1RC78qzf-VXgNJd1JmJ__) |
 
 ---
 
